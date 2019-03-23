@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.28307.106
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Game2048", "Game2048\Game2048.csproj", "{EA86E2B0-8F80-43F7-A612-D39E0E2AFF9C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Game2048.Tests", "Game2048.Tests\Game2048.Tests.csproj", "{9E3BB842-C5E7-4174-A40B-42B547953B5E}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{EA86E2B0-8F80-43F7-A612-D39E0E2AFF9C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EA86E2B0-8F80-43F7-A612-D39E0E2AFF9C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EA86E2B0-8F80-43F7-A612-D39E0E2AFF9C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EA86E2B0-8F80-43F7-A612-D39E0E2AFF9C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9E3BB842-C5E7-4174-A40B-42B547953B5E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9E3BB842-C5E7-4174-A40B-42B547953B5E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9E3BB842-C5E7-4174-A40B-42B547953B5E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9E3BB842-C5E7-4174-A40B-42B547953B5E}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {A07A10FA-1B4E-4B16-BB2D-FC3CD7D9031F}
+	EndGlobalSection
+EndGlobal

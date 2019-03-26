@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 
 namespace Game2048
@@ -29,12 +30,11 @@ namespace Game2048
 					this[x, y] = 0;
 		}
 
-		internal uint[] GetVerticalSlice(uint x)
+		internal IEnumerable<uint> GetVerticalSlice(uint x, bool withoutZero = false)
 		{
-			List<uint> result = new List<uint>();
 			for (uint y = 0; y < GAME_SIZE; y++)
-				result.Add(_cells[x, y]);
-			return result.ToArray();
+				if ((withoutZero && _cells[x, y] > 0) ^ !withoutZero)
+					yield return _cells[x, y];
 		}
 
 		internal void SetVerticalSlice(uint x, params uint[] values)
@@ -43,12 +43,11 @@ namespace Game2048
 				this[x, y] = values[y];
 		}
 
-		internal uint[] GetHorizontalSlice(uint y)
+		internal IEnumerable<uint> GetHorizontalSlice(uint y, bool withoutZero = false)
 		{
-			List<uint> result = new List<uint>();
 			for (uint x = 0; x < GAME_SIZE; x++)
-				result.Add(_cells[x, y]);
-			return result.ToArray();
+				if ((withoutZero && _cells[x, y] > 0) ^ !withoutZero)
+					yield return _cells[x, y];
 		}
 
 		internal void SetHorizontalSlice(uint y, params uint[] values)
@@ -73,14 +72,72 @@ namespace Game2048
 
 		public void MoveLeft()
 		{
-			for(int x = 0; x < GAME_SIZE; x++)
+			for(uint x = 0; x < GAME_SIZE; x++)
 			{
+				uint[] slice = GetHorizontalSlice(x, false).ToArray();
+				slice = CollapseCells(slice);
+
+				uint? last = null;
+				for(uint i = 0; i < slice.Length; i++)
+				{
+					if (!last.HasValue && slice[i] == 0)
+						last = i;
+					else if(last.HasValue && slice[i] > 0)
+					{
+						slice[last.Value] = slice[i];
+						slice[i] = 0;
+						last = null;
+					}
+				}
+
+				this.SetHorizontalSlice(x, slice);
 
 			}
 		}
 
 		public void MoveRight()
 		{
+			for (uint x = 0; x < GAME_SIZE; x++)
+			{
+				uint[] slice = GetHorizontalSlice(x, false).ToArray();
+				slice = CollapseCells(slice);
+
+				uint? last = null;
+				for (uint i = 0; i < slice.Length; i++)
+				{
+					if (!last.HasValue && slice[i] > 0)
+						last = i;
+					else if (last.HasValue && slice[i] == 0)
+					{
+						slice[i] = slice[last.Value];
+						slice[last.Value] = 0;
+						last = i;
+					}
+				}
+
+				this.SetHorizontalSlice(x, slice);
+
+			}
+		}
+
+		internal uint[] CollapseCells(uint[] slice)
+		{
+			uint? last = null;
+			for (uint i = 0; i < slice.Length; i++)
+			{
+				if (slice[i] > 0)
+				{
+					if (last.HasValue && slice[i] == slice[last.Value])
+					{
+						slice[last.Value] <<= 1;
+						slice[i] = 0;
+						last = null;
+					}
+					else
+						last = i;
+				}
+			}
+			return slice;
 		}
 
 	}

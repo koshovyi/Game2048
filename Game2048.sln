@@ -1,11 +1,17 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 15
-VisualStudioVersion = 15.0.28307.106
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.30309.148
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Game2048", "Game2048\Game2048.csproj", "{EA86E2B0-8F80-43F7-A612-D39E0E2AFF9C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Game2048", "Game2048\Game2048.csproj", "{EA86E2B0-8F80-43F7-A612-D39E0E2AFF9C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Game2048.Tests", "Game2048.Tests\Game2048.Tests.csproj", "{9E3BB842-C5E7-4174-A40B-42B547953B5E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Game2048.Tests", "Game2048.Tests\Game2048.Tests.csproj", "{9E3BB842-C5E7-4174-A40B-42B547953B5E}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Documentation", "Documentation", "{22914FCA-4721-4F1C-8FCA-EA0341F36CCB}"
+	ProjectSection(SolutionItems) = preProject
+		README.md = README.md
+		Media\scr2048.png = Media\scr2048.png
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

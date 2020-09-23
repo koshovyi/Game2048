@@ -12,9 +12,7 @@ namespace Game2048
 		public const double PROBABILITY_2 = 90.9090909d;
 
 		private uint[,] _cells;
-
-		private uint _score;
-
+		
 		private Random _random;
 
 		private enum KEY_ARROW : uint
@@ -26,10 +24,7 @@ namespace Game2048
 			DOWN = 4,
 		}
 
-		public uint Score
-		{
-			get { return this._score; }
-		}
+		public uint Score { get; private set; }
 
 		public Board()
 		{
@@ -40,7 +35,7 @@ namespace Game2048
 
 		public void Reset(bool newCells = false)
 		{
-			this._score = 0;
+			this.Score = 0;
 			for (uint x = 0; x < GAME_SIZE; x++)
 				for (uint y = 0; y < GAME_SIZE; y++)
 					this[x, y] = 0;
@@ -183,7 +178,7 @@ namespace Game2048
 					{
 						slice[last.Value] <<= 1;
 						slice[i] = 0;
-						_score += slice[last.Value];
+						this.Score += slice[last.Value];
 						last = null;
 					}
 					else

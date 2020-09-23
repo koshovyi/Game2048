@@ -16,14 +16,18 @@ namespace Game2048
 
 		static Board _board;
 
+		private static bool _gameIsOver;
+
 		static void Main(string[] args)
 		{
 			Console.Title = "2048 Console version";
 			Console.CursorVisible = false;
-			Console.WindowHeight = 20;
+			Console.WindowHeight = 15;
 			Console.WindowWidth = 70;
 
+			_gameIsOver = false;
 			_board = new Board();
+			_board.GameOver += _board_GameOver;
 
 			DrawBoard();
 			DrawTitle();
@@ -53,11 +57,21 @@ namespace Game2048
 				DrawBoard();
 				DrawScore();
 			}
-			while (key.Key != ConsoleKey.Escape);
+			while (key.Key != ConsoleKey.Escape && !_gameIsOver);
 
-			Console.Clear();
-			Console.WriteLine("Good bye :)");
+			if (_gameIsOver)
+				DrawGameOver();
+			else
+			{
+				Console.Clear();
+				Console.WriteLine("Good bye :)");
+			}
 			Console.Read();
+		}
+
+		private static void _board_GameOver(object sender, EventArgs e)
+		{
+			_gameIsOver = true;
 		}
 
 		static void SetCursorPosition(uint x, uint y)
@@ -198,6 +212,14 @@ namespace Game2048
 			Console.CursorTop = 11;
 			Console.CursorLeft = 28;
 			Console.WriteLine("Score:\t" + _board.Score.ToString());
+		}
+
+		static void DrawGameOver()
+		{
+			Console.CursorTop = 12;
+			Console.CursorLeft = 28;
+			Console.ForegroundColor = ConsoleColor.Red;
+			Console.WriteLine("Oops!... Game Over :(");
 		}
 
 	}

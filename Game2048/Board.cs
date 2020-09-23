@@ -26,6 +26,8 @@ namespace Game2048
 
 		public uint Score { get; private set; }
 
+		public event EventHandler GameOver;
+
 		public Board()
 		{
 			this._cells = new uint[GAME_SIZE, GAME_SIZE];
@@ -94,6 +96,40 @@ namespace Game2048
 
 				this[x, y] = NewCellValue();
 			}
+			else
+				CheckIfGameIsOver();
+		}
+
+		internal bool CheckIfGameIsOver()
+		{
+			bool CheckRow(uint[] slice)
+			{
+				uint? last = slice[0];
+				for (int i = 1; i < slice.Length; i++)
+				{
+					if (slice[i] == last.Value)
+						return false;
+					else
+						last = slice[i];
+				}
+				return true;
+			}
+
+			for (uint x = 0; x < GAME_SIZE; x++)
+			{
+				uint[] slice = GetVerticalSlice(x);
+				if (!CheckRow(slice))
+					return false;
+			}
+			for (uint y = 0; y < GAME_SIZE; y++)
+			{
+				uint[] slice = GetHorizontalSlice(y);
+				if (!CheckRow(slice))
+					return false;
+			}
+
+			GameOver?.Invoke(this, EventArgs.Empty);
+			return true;
 		}
 
 		internal bool HasEmptyCell()

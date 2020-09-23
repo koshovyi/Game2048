@@ -2,7 +2,7 @@
 2048 game implementation in C# .NET Core Console App. 
 All graphics implemented using ASCII chars.
 
-![Image of Yaktocat](media/scr2048.png)
+![Screenshot](https://raw.githubusercontent.com/koshovyi/Game2048/master/Media/scr2048.png)
 
 **Controls:**
 

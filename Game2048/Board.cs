@@ -17,6 +17,15 @@ namespace Game2048
 
 		private Random _random;
 
+		private enum KEY_ARROW : uint
+		{
+			UNKNOWN = 0,
+			LEFT = 1,
+			RIGHT = 2,
+			UP = 3,
+			DOWN = 4,
+		}
+
 		public uint Score
 		{
 			get { return this._score; }
@@ -114,57 +123,30 @@ namespace Game2048
 
 		#region Moves
 
-		public void MoveUp(bool newCell = false)
+		public void MoveUp(bool newCell = false) => Move(KEY_ARROW.UP, newCell);
+
+		public void MoveDown(bool newCell = false) => Move(KEY_ARROW.DOWN, newCell);
+
+		public void MoveLeft(bool newCell = false) => Move(KEY_ARROW.LEFT, newCell);
+
+		public void MoveRight(bool newCell = false) => Move(KEY_ARROW.RIGHT, newCell);
+		
+		private void Move(KEY_ARROW arrow, bool newCell = false)
 		{
 			for (uint x = 0; x < GAME_SIZE; x++)
 			{
 				uint[] slice;
-				slice = GetVerticalSlice(x);
+				slice = arrow == KEY_ARROW.RIGHT || arrow == KEY_ARROW.LEFT 
+					? GetHorizontalSlice(x) 
+					: GetVerticalSlice(x);
 				slice = CollapseCells(slice);
-				slice = ZeroToLeft(slice);
-				this.SetVerticalSlice(x, slice);
-			}
-			if(newCell)
-				this.NewCell();
-		}
-
-		public void MoveDown(bool newCell = false)
-		{
-			for (uint x = 0; x < GAME_SIZE; x++)
-			{
-				uint[] slice;
-				slice = GetVerticalSlice(x);
-				slice = CollapseCells(slice);
-				slice = ZeroToRight(slice);
-				this.SetVerticalSlice(x, slice);
-			}
-			if (newCell)
-				this.NewCell();
-		}
-
-		public void MoveLeft(bool newCell = false)
-		{
-			for(uint y = 0; y < GAME_SIZE; y++)
-			{
-				uint[] slice;
-				slice = GetHorizontalSlice(y);
-				slice = CollapseCells(slice);
-				slice = ZeroToLeft(slice);
-				this.SetHorizontalSlice(y, slice);
-			}
-			if (newCell)
-				this.NewCell();
-		}
-
-		public void MoveRight(bool newCell = false)
-		{
-			for (uint y = 0; y < GAME_SIZE; y++)
-			{
-				uint[] slice;
-				slice = GetHorizontalSlice(y);
-				slice = CollapseCells(slice);
-				slice = ZeroToRight(slice);
-				this.SetHorizontalSlice(y, slice);
+				slice = arrow == KEY_ARROW.LEFT || arrow == KEY_ARROW.UP
+					? ZeroToLeft(slice)
+					: ZeroToRight(slice);
+				if (arrow == KEY_ARROW.RIGHT || arrow == KEY_ARROW.LEFT)
+					this.SetHorizontalSlice(x, slice);
+				else
+					this.SetVerticalSlice(x, slice);
 			}
 			if (newCell)
 				this.NewCell();

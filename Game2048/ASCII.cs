@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace Game2048
+﻿namespace Game2048
 {
 
 	public enum ASCII : uint

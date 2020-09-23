@@ -187,10 +187,10 @@ namespace Game2048
 		{
 			Console.CursorTop = 9;
 			Console.CursorLeft = 28;
-			//Console.WriteLine("Author:\tKoshovyi Dmytro");
+			Console.WriteLine("Author:\tKoshovyi Dmytro");
 			Console.CursorTop = 10;
 			Console.CursorLeft = 28;
-			//Console.WriteLine("Site:\twww.koshovyi.com");
+			Console.WriteLine("Site:\twww.koshovyi.com");
 		}
 
 		static void DrawScore()
